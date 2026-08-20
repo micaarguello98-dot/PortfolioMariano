@@ -74,7 +74,7 @@ export default function About() {
                       <span className="text-xs text-slate-500 font-medium">{ed.period}</span>
                       <span
                         className={`text-xs px-2.5 py-0.5 rounded-full font-semibold ${
-                          ed.status === "Cursando 2do año"
+                          ed.status === "Cursando último año"
                             ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
                             : "bg-white/5 text-slate-400 border border-white/10"
                         }`}

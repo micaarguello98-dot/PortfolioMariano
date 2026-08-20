@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { projects } from "../data/portfolio";
-import { FiExternalLink, FiX, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { projects, videos } from "../data/portfolio";
+import { FiExternalLink, FiX, FiChevronLeft, FiChevronRight, FiPlay } from "react-icons/fi";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },
@@ -25,11 +25,24 @@ function ProjectCard({ project, onOpenGallery }) {
         className="h-40 relative flex items-center justify-center overflow-hidden"
       >
         {project.image ? (
-          <img
-            src={project.image}
-            alt={project.title}
-            className={`absolute inset-0 w-full h-full group-hover:scale-105 transition-transform duration-500 ${project.objectFit || "object-cover"}`}
-          />
+          <>
+            {/* Blurred background — elimina los espacios negros */}
+            <div
+              className="absolute inset-0 scale-110"
+              style={{
+                backgroundImage: `url(${project.image})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                filter: "blur(40px) brightness(0.4) saturate(1.2)",
+              }}
+            />
+            {/* Imagen principal sobre el fondo */}
+            <img
+              src={project.image}
+              alt={project.title}
+              className="relative z-10 w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+            />
+          </>
         ) : (
           <>
             <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient}`} />
@@ -50,27 +63,28 @@ function ProjectCard({ project, onOpenGallery }) {
         </div>
       </div>
 
+
       {/* Content */}
-      <div className="p-6 flex flex-col flex-1">
-        <h3 className="text-white font-bold text-lg mb-2">{project.title}</h3>
-        <p className="text-slate-400 text-sm leading-relaxed flex-1">
+      <div className="p-4 flex flex-col flex-1">
+        <h3 className="text-white font-semibold text-base mb-1.5">{project.title}</h3>
+        <p className="text-slate-400 text-xs leading-relaxed flex-1">
           {project.description}
         </p>
-        <div className="flex flex-wrap gap-2 mt-4">
+        <div className="flex flex-wrap gap-1.5 mt-3">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="text-xs px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-slate-400"
+              className="text-xs px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-400"
             >
               {tag}
             </span>
           ))}
         </div>
-        <div className="flex gap-3 mt-5">
+        <div className="flex gap-3 mt-3">
           {project.gallery ? (
             <button
               onClick={() => onOpenGallery(project)}
-              className="flex-1 text-center btn-primary text-sm py-2.5 cursor-pointer font-semibold"
+              className="flex-1 text-center btn-primary text-xs py-2 cursor-pointer font-semibold"
             >
               {project.demoLabel || "Visualizar"}
             </button>
@@ -79,7 +93,7 @@ function ProjectCard({ project, onOpenGallery }) {
               href={project.demo}
               target="_blank"
               rel="noreferrer"
-              className="flex-1 text-center btn-primary text-sm py-2.5"
+              className="flex-1 text-center btn-primary text-xs py-2"
             >
               {project.demoLabel || "Visualizar"}
             </a>
@@ -87,6 +101,133 @@ function ProjectCard({ project, onOpenGallery }) {
         </div>
       </div>
     </motion.div>
+  );
+}
+
+function VideoCard({ video, onPlay }) {
+  const thumbnail = video.thumbnail || `https://img.youtube.com/vi/${video.interviews?.[0]?.url?.split('v=')[1]}/maxresdefault.jpg`;
+  return (
+    <motion.div
+      variants={fadeUp}
+      whileHover={{ y: -6, transition: { duration: 0.25 } }}
+      className="glass rounded-3xl overflow-hidden group flex flex-col"
+    >
+      {/* Thumbnail with play button */}
+      <div
+        className="h-40 relative flex items-center justify-center overflow-hidden cursor-pointer"
+        onClick={() => onPlay(video)}
+      >
+        <img
+          src={thumbnail}
+          alt={video.title}
+          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+        <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-all duration-300" />
+        {/* Play button */}
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} className="relative flex items-center justify-center">
+            <span className="absolute w-16 h-16 rounded-full bg-white/10 animate-ping" />
+            <div className="relative w-11 h-11 rounded-full bg-white/90 flex items-center justify-center shadow-2xl">
+              <FiPlay className="text-rose-600 ml-0.5" size={16} fill="currentColor" />
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-4 flex flex-col flex-1">
+        <h3 className="text-white font-semibold text-base mb-1.5">{video.title}</h3>
+        <p className="text-slate-400 text-xs leading-relaxed flex-1">{video.description}</p>
+        <div className="flex flex-wrap gap-1.5 mt-3">
+          {video.tags.map((tag) => (
+            <span key={tag} className="text-xs px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-400">
+              {tag}
+            </span>
+          ))}
+        </div>
+        <div className="flex gap-3 mt-3">
+          <button
+            onClick={() => onPlay(video)}
+            className="flex-1 text-center btn-primary text-xs py-2 cursor-pointer font-semibold flex items-center justify-center gap-2"
+          >
+            <FiPlay size={12} />
+            Ver entrevistas
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function VideoModal({ video, onClose }) {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    const handleKey = (e) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", handleKey);
+    return () => {
+      document.body.style.overflow = "unset";
+      window.removeEventListener("keydown", handleKey);
+    };
+  }, []);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={onClose}
+        className="fixed inset-0 bg-black/90 backdrop-blur-md"
+      />
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+        transition={{ type: "spring", stiffness: 120, damping: 20 }}
+        className="glass bg-navy-950/95 rounded-3xl p-6 md:p-8 max-w-md w-full relative z-10 shadow-2xl border border-white/10"
+      >
+        {/* Close */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 p-2 rounded-full bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-all cursor-pointer"
+        >
+          <FiX size={18} />
+        </button>
+
+        {/* Header */}
+        <div className="mb-6">
+          <span className="text-rose-400 text-xs font-semibold uppercase tracking-widest">Producción Audiovisual</span>
+          <h3 className="text-white font-bold text-xl mt-1">{video.title}</h3>
+          <p className="text-slate-400 text-sm mt-1">{video.description}</p>
+        </div>
+
+        {/* Interview links */}
+        <div className="space-y-3">
+          {video.interviews?.map((interview, i) => (
+            <a
+              key={i}
+              href={interview.url}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-rose-500/30 hover:bg-rose-500/5 transition-all duration-300 group"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center shrink-0">
+                  <FiPlay className="text-rose-400 ml-0.5" size={12} fill="currentColor" />
+                </div>
+                <div>
+                  <span className="text-white text-sm font-medium group-hover:text-rose-300 transition-colors">{interview.title}</span>
+                  {interview.role && (
+                    <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 font-medium">{interview.role}</span>
+                  )}
+                </div>
+              </div>
+              <FiExternalLink className="text-slate-500 group-hover:text-rose-400 transition-colors shrink-0" size={16} />
+            </a>
+          ))}
+        </div>
+      </motion.div>
+    </div>
   );
 }
 
@@ -240,6 +381,7 @@ function GalleryModal({ project, onClose }) {
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
+  const [activeVideo, setActiveVideo] = useState(null);
 
   return (
     <section id="proyectos" className="section-padding bg-navy-950 relative">
@@ -271,7 +413,7 @@ export default function Projects() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid sm:grid-cols-2 gap-5"
         >
           {projects.map((project) => (
             <ProjectCard
@@ -279,6 +421,9 @@ export default function Projects() {
               project={project}
               onOpenGallery={setSelectedProject}
             />
+          ))}
+          {videos.map((video) => (
+            <VideoCard key={`video-${video.id}`} video={video} onPlay={setActiveVideo} />
           ))}
         </motion.div>
       </div>
@@ -289,6 +434,12 @@ export default function Projects() {
             project={selectedProject}
             onClose={() => setSelectedProject(null)}
           />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {activeVideo && (
+          <VideoModal video={activeVideo} onClose={() => setActiveVideo(null)} />
         )}
       </AnimatePresence>
     </section>

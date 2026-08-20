@@ -4,7 +4,6 @@ import { FiInstagram, FiHeart, FiMail, FiMapPin, FiPhone } from "react-icons/fi"
 const navLinks = [
   { label: "Inicio", href: "#hero" },
   { label: "Sobre mí", href: "#sobre-mi" },
-  { label: "Skills", href: "#skills" },
   { label: "Proyectos", href: "#proyectos" },
   { label: "Contacto", href: "#contacto" },
 ];
