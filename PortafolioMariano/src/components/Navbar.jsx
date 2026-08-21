@@ -47,7 +47,7 @@ export default function Navbar() {
             onClick={() => handleNav("#hero")}
             className="flex items-center"
           >
-            <img src="/logo12.jpeg" alt="Logo" className="h-12 w-auto object-contain rounded-lg" />
+            <img src="/logo-new.jfif" alt="Logo Mariano Argüello" className="h-12 w-auto object-contain rounded-lg" />
           </motion.button>
           
           <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold select-none">

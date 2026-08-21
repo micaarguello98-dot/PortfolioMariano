@@ -26,7 +26,7 @@ export default function Footer() {
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
               <img 
-                src="/logo12.jpeg" 
+                src="/logo-new.jfif" 
                 alt="Logo" 
                 className="h-10 w-auto object-contain rounded-xl border border-white/10" 
               />

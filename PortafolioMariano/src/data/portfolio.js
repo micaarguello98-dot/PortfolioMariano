@@ -123,6 +123,8 @@ export const projects = [
       "/creacion de piezas  graficas/Muestras graficas.jpg",
       "/creacion de piezas  graficas/Amelie.jpg",
       "/creacion de piezas  graficas/LOGOS.jpg",
+      "/creacion de piezas  graficas/Piezagrafica6.jpeg",
+      "/creacion de piezas  graficas/Piezagrafica7.jpeg",
     ],
     repo: "#",
     gradient: "from-emerald-500 to-teal-600",
@@ -153,11 +155,11 @@ export const stats = [
 export const videos = [
   {
     id: 1,
-    title: "Entrevista a músicos",
+    title: "Entrevistas",
     description:
-      "Entrevistas a músicos donde trabajé detrás de cámara.",
-    thumbnail: `https://img.youtube.com/vi/8OrNqeL2-1M/maxresdefault.jpg`,
-    tags: ["Cámara", "Entrevista", "Producción Audiovisual"],
+      "Entrevistas donde trabajé detrás de cámara.",
+    thumbnail: "/_MG_4958.JPG",
+    tags: ["Entrevista", "Producción Audiovisual"],
     interviews: [
       {
         title: "Gauchos of the Pampa",
