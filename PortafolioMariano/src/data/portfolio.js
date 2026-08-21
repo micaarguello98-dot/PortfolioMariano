@@ -166,6 +166,11 @@ export const videos = [
         role: "Cámara 3",
         url: "https://www.youtube.com/watch?v=8OrNqeL2-1M",
       },
+      {
+        title: "Documental Noemí UNQ",
+        role: "Cámara",
+        url: "https://www.youtube.com/watch?v=ZsSt5P5BnTE",
+      },
     ],
   },
 ];
