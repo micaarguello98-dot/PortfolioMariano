@@ -15,7 +15,7 @@ export const personalInfo = {
   email: "Mariaanoarg@gmail.com",
   phone: "+54 9 11 6522-6293",
   bio: "Soy estudiante de Tecnicatura Universitaria en Producción Digital en la Universidad Nacional de Quilmes, me oriento en la creación y desarrollo de contenidos audiovisuales y proyectos digitales. Combino una mirada creativa y estratégica con responsabilidad, organización y capacidad para aprender rápidamente nuevas herramientas. Me interesa formar parte de equipos de producción, comunicación y contenidos donde pueda transformar ideas en proyectos concretos, aportar soluciones y seguir desarrollando mis habilidades profesionales. Busco una oportunidad laboral que me permita crecer dentro del sector digital y ayudar desde mi conocimiento, creatividad y compromiso.",
-  cv: "/Mariano Arguello CV 2025.pdf",
+  cv: "/Mariano Arguello CV 2026.pdf",
   socials: {
     instagram: "https://www.instagram.com/molokai.d?igsh=N3NmaGJzcjdoamZs",
   },

@@ -154,7 +154,7 @@ export default function Hero() {
             href={personalInfo.cv}
             target="_blank"
             rel="noreferrer"
-            download="Mariano Arguello CV 2025.pdf"
+            download="Mariano Arguello CV 2026.pdf"
             className="btn-secondary flex items-center gap-2 px-7 py-3 text-base"
           >
             <FiDownload size={16} />
